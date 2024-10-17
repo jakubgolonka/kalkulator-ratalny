@@ -22,7 +22,7 @@ The application facilitates accurate loan repayment planning for users, taking i
 | Recalculating new installment | *przeliczNowaRate() | The function recalculates the new loan installment after applying the overpayment. It calculates the new installment amount based on the remaining principal.
 | **Displaying Results** | | **Displays user loan data in the console.**
 | Displaying schedule | *wyswietlanieHarmonogramu()* |  Presents the loan repayment schedule, showing for each month the principal part, interest part, overpayment amount, and remaining amount to be repaid.
-| **Additional Information** | | ** Additional functions**
+| **Additional Information** | | **Additional functions**
 | Displaying authors | *wyswietlanieAutorow()* | Displays information about the program’s authors.
 
 ## Application Modules
