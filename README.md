@@ -1,4 +1,4 @@
-<img src="logotype.png" width="200px">
+<img alt="logotype" src="logotype.png" width="200px">
 
 # Installment Calculator
 
