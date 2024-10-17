@@ -1,127 +1,126 @@
 <img src="logotype.png" width="200px">
 
-# Kalkulator ratalny
+# Installment Calculator
 
-## Cel i funkcje aplikacji
-Kalkulator ratalny to aplikacja konsolowa, która umożliwia obliczenie harmonogramu spłat kredytu na podstawie kwoty kredytu, okresu spłaty, oprocentowania oraz opcjonalnej nadpłaty. Użytkownik wprowadza dane, a aplikacja oblicza i wyświetla miesięczne raty kredytu, dzieląc je na część kapitałową oraz odsetkową. Kalkulator pomaga również zrozumieć, jak nadpłata wpływa na skrócenie okresu kredytowania i zmniejszenie kwoty odsetek.
+## Purpose and Functions of the Application
+The installment calculator is a console application that allows you to calculate a loan repayment schedule based on the loan amount, repayment period, interest rate, and optional overpayment. The user inputs the data, and the application calculates and displays the monthly loan installments, dividing them into principal and interest parts. The calculator also helps understand how overpayment affects the shortening of the loan period and the reduction of interest amounts.
 
-## Problem, który rozwiązuje aplikacja
-Aplikacja ułatwia użytkownikom dokładne planowanie spłaty kredytu, uwzględniając zmienne oprocentowanie oraz nadpłaty. Pozwala na szybkie obliczenia i symulacje, które mogą być trudne do wykonania ręcznie, dostarczając użytkownikowi jasne dane o jego zobowiązaniach kredytowych.
+## Problem Solved by the Application
+The application facilitates accurate loan repayment planning for users, taking into account variable interest rates and overpayments. It allows for quick calculations and simulations that can be difficult to perform manually, providing the user with clear data on their loan obligations.
 
-# Architektura aplikacji
-| **Moduł** | **Funkcje** | **Opis** |
+# App Architecture
+| **Module** | **Functions** | **Description** |
 |:---------:|:-----------:|:-----------:|
-| **Wczytywanie Danych** | | **Odpowiada za pobieranie i walidację danych od użytkownika.**
-| Wczytywanie kwoty kredytu | *wczytywanieKwotyKredytu()* | Funkcja pobiera od użytkownika kwotę kredytu. Waliduje, czy wprowadzona wartość jest liczbą dodatnią. Jeśli nie, wyświetla błąd i prosi o ponowne wprowadzenie wartości.
-| Wczytywanie liczby miesięcy | *wczytywanieLiczbyMiesiecy()* | Funkcja pobiera liczbę miesięcy na spłatę kredytu. Waliduje poprawność danych (liczba musi być większa od 0).
-| Wczytywanie oprocentowania kredytu | *wczytywanieOprocentowaniaKredytu()* | Funkcja pobiera oprocentowanie roczne w procentach. Sprawdza, czy użytkownik wprowadził poprawną wartość większą niż 0.
-| Wczytywanie nadpłaty kredytu | *wczytywanieNadplatyKredytu(decimal kwotaKredytu)* | Funkcja pyta użytkownika, czy chce dodać nadpłatę do kredytu. Jeśli tak, pobiera wartość nadpłaty i weryfikuje, czy nadpłata nie przekracza pozostałej kwoty kredytu.
-| **Obliczenia i przetwarzanie** | | **Odpowiada za wszystkie obliczenia związane z harmonogramem spłat kredytu oraz ratami.**
-| Obliczanie oprocentowania | *obliczanieOprocentowania()* | Funkcja przelicza oprocentowanie roczne na miesięczne (oprocentowanie roczne podzielone na 12).
-| Obliczanie raty kredytu | *obliczRateKredytu()* | Funkcja oblicza wysokość miesięcznej raty kredytu. Uwzględnia oprocentowanie oraz liczbę miesięcy. Używa formuły dla rat stałych. 
-| Przeliczanie nowej raty | *przeliczNowaRate() | Funkcja przelicza nową ratę kredytu po zastosowaniu nadpłaty. Oblicza nową wysokość raty na podstawie pozostałego kapitału.
-| **Wyświetlanie wyników** | | **Wyświetla dane dotyczące kredytu użytkowników w konsoli.**
-| Wyswietlanie harmonogramu | *wyswietlanieHarmonogramu()* | Prezentuje harmonogram spłat kredytu podając dla każdego miesiąca część kapitałową, odsetkową, wartość nadpłaty oraz pozostałą kwotę do spłaty.
-| **Informacje dodatkowe** | | **Dodatkowe funkcje**
-| Wyswietlanie autorów | *wyswietlanieAutorow()* | Wyświetla informacje o autorach programu.
+| **Data Loading** | | **Responsible for collecting and validating user data.** |
+| Loading loan amount | *wczytywanieKwotyKredytu()* | The function collects the loan amount from the user. It validates whether the entered value is a positive number. If not, it displays an error and asks for the value to be re-entered.
+| Loading number of months | *wczytywanieLiczbyMiesiecy()* | The function collects the number of months for loan repayment. It validates the correctness of the data (the number must be greater than 0).
+| Loading loan interest rate | *wczytywanieOprocentowaniaKredytu()* | The function collects the annual interest rate in percentage. It checks if the user has entered a correct value greater than 0.
+| Loading loan overpayment | *wczytywanieNadplatyKredytu(decimal kwotaKredytu)* | The function asks the user if they want to add an overpayment to the loan. If so, it collects the overpayment amount and verifies that the overpayment does not exceed the remaining loan amount.
+| **Calculations and Processing** | | **Responsible for all calculations related to the loan repayment schedule and installments.**
+| Calculating interest rate | *obliczanieOprocentowania()* | The function converts the annual interest rate to a monthly rate (annual interest rate divided by 12).
+| Calculating loan installment | *obliczRateKredytu()* | The function calculates the amount of the monthly loan installment. It takes into account the interest rate and the number of months. It uses the formula for fixed installments.
+| Recalculating new installment | *przeliczNowaRate() | The function recalculates the new loan installment after applying the overpayment. It calculates the new installment amount based on the remaining principal.
+| **Displaying Results** | | **Displays user loan data in the console.**
+| Displaying schedule | *wyswietlanieHarmonogramu()* |  Presents the loan repayment schedule, showing for each month the principal part, interest part, overpayment amount, and remaining amount to be repaid.
+| **Additional Information** | | ** Additional functions**
+| Displaying authors | *wyswietlanieAutorow()* | Displays information about the program’s authors.
 
-## Moduły aplikacji
+## Application Modules
 
-### Moduł wczytywania danych
-* Odpowiada za wprowadzenie danych użytkownika takich jak, kwota kredytu, liczba miesięcy, oprocentowanie oraz nadpłata. Dane są weryfikowane pod kątem poprawności.
+### Data Loading Module
+* Responsible for entering user data such as loan amount, number of months, interest rate, and overpayment. The data is validated for correctness.
 
-### Moduł obliczeń
-* Oblicza miesięczną ratę kredytu z podziałem na część kapitałową i odsetkową, na podstawie wprowadzonych danych. Uwzględnia wpływa nadpłaty na pozostały kapitał oraz modyfikuje harmonogram spłat.
+### Calculation Module
+* Calculates the monthly loan installment, dividing it into principal and interest parts, based on the entered data. It considers the impact of overpayment on the remaining principal and modifies the repayment schedule.
 
-### Moduł wyświetlania wyników
-* Odpowiada za prezentację harmonogramu spłat, który zawiera szczegóły każdej raty, a także informacje o nadpłatach i pozostałym kapitale.
 
-# Opis funkcji i funkcjonalności
+# Description of Functions and Functionalities
 
-### Funkcja *wczytywanieKwotyKredytu*
-* Pobiera od użytkownika kwotę kredytu. Sprawdza czy podana wartość jest liczbą dodatnią. W przypadku błędu użytkownik zostaje poproszony o ponowne wprowadzenie danych.
+### Function *wczytywanieKwotyKredytu*
+* Collects the loan amount from the user. Checks if the entered value is a positive number. In case of an error, the user is asked to re-enter the data.
 
-### Funkcja *wczytywanieLiczbyMiesiecy*
-* Odpowiada za wprowadzenie liczby miesięcy spłaty. Zabezpiecza przed podaniem wartości ujemnych lub nieprawidłowych.
+### Function *wczytywanieLiczbyMiesiecy*
+* Responsible for entering the number of repayment months. Prevents entering negative or incorrect values.
 
-### Funkcja *wczytywanieOprocentowaniaKredytu*
-* Użytkownik podaje roczne oprocentowanie w procentach. Program przelicza je na oprocentowanie miesięczne.
+### Function *wczytywanieOprocentowaniaKredytu*
+* The user provides the annual interest rate in percentage. The program converts it to a monthly interest rate.
 
-### Funkcja *wczytywanieNadplatyKredytu*
-* Pozwala użytkownikowi na opcjonalne wprowadzenie kwoty nadpłaty. Sprawdza, czy nadpłata nie przekracza kwoty kredytu.
+### Function *wczytywanieNadplatyKredytu*
+* Allows the user to optionally enter an overpayment amount. Checks if the overpayment does not exceed the loan amount.
 
-### Funkcja *obliczanieOprocentowania*
-* Oblicza oprocentowanie miesięczne na podstawie wartości rocznego oprocentowania.
+### Function *obliczanieOprocentowania*
+* Calculates the monthly interest rate based on the annual interest rate.
 
-### Funkcja *obliczRateKredytu*
-* Oblicza miesięczną ratę kredytu z uwzględnieniem części kapitałowej i odsetkowej. Algorytm wykorzystuje formułę dla rat stałych.
+### Function *obliczRateKredytu*
+* Calculates the monthly loan installment, considering the principal and interest parts. The algorithm uses the formula for fixed installments.
 
-### Funkcja *wyswietlanieHarmonogramu*
-* Wyświetla szczegółowy harmonogram spłat, który zawiera informacje o częściach kapitałowej, odsetkowej oraz nadpłacie.
+### Function *wyswietlanieHarmonogramu*
+* Displays a detailed repayment schedule, which includes information on the principal, interest parts, and overpayment.
 
-# Instalacja i konfiguracja
+# Installation and Configuration
 
-## Wymagania systemowe
+## System Requirements
 
-### System operacyjny
+### Operating System
 * Windows
 * Linux
 * macOS
 
 ### .NET SDK
-* Wersja 6.0 lub nowsza
+* Version 6.0 or newer
 
 ### IDE 
-* Visual Studio 2022 (lub nowsze)
+* Visual Studio 2022 (or newer)
 
-## Kroki instalacji i konfiguracji
-* **1.** Pobierz i zainstaluj .NET SDK ze strony <a href = "https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Microsoft</a>
-* **2.** Otwórz projekt w Visual Studio lub uruchom z linii komend
-* **3.** Skopiuj pliki źródłowe programu do wybranego katalogu
-* **4.** W Visual Studio wybierz opcję *Otwórz projekt* i wskaż plik .csproj, a następnie kliknij *Uruchom* lub użyj *dotnet run* w linii komend
+## Installation and Configuration
+* **1.** Download and install the .NET SDK from the <a href = "https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Microsoft</a> website..
+* **2.** Open the project in Visual Studio or run it from the command line.
+* **3.** Copy the program’s source files to the selected directory.
+* **4.** In Visual Studio, select the Open Project option and point to the .csproj file, then click Run or use dotnet run in the command line.
 
-# Dokumentacja kodu
-* **Klasa Program**: Główna klasa, która zawiera wszystkie funkcje programu.
-* **Funkcje wczytywanieKwotyKredytu, wczytywanieLiczbyMiesiecy, wczytywanieOprocentowaniaKredytu, wczytywanieNadplatyKredytu**: Funkcje te wczytują dane od użytkownika i obsługują potencjalne błędy, jak nieprawidłowe wartości wejściowe.
-* **Funkcja obliczRateKredytu**: Kluczowy algorytm obliczający stałą ratę kredytu według formuły równej raty.
-* **Funkcja wyswietlanieHarmonogramu**: Wyświetla harmonogram rat na konsoli, z podziałem na kapitał, odsteki oraz pozostały dług.
+# Code Documentation
+* **Class Program**: The main class that contains all the program’s functions.
+* **Functions wczytywanieKwotyKredytu, wczytywanieLiczbyMiesiecy, wczytywanieOprocentowaniaKredytu, wczytywanieNadplatyKredytu**: These functions load data from the user and handle potential errors, such as incorrect input values.
+* **Function obliczRateKredytu**: The key algorithm that calculates the fixed loan installment using the equal installment formula.
+* **Function wyswietlanieHarmonogramu**:  Displays the installment schedule on the console, dividing it into principal, interest, and remaining debt.
 
-# Przykłady użycia 
+# Usage Examples
 
-## Przykład 1
-* **Dane wejściowe**
-   * Kwota kredytu: 10,000 zł
-   * Liczba miesięcy: 24
-   * Oprocentowanie: 5%
-   * Nadpłata: brak
+## Example 1
+* **Input Data**
+   * Loan amount: 10,000 PLN
+   * Number of months: 24
+   * Interest rate: 5%
+   * Overpaymenta: none
 
-* **Wynik:** Harmonogram z spłat z ratą miesięczną około 438,71zł (w tym kapitał i odsetki)
+* **Result:** Repayment schedule with a monthly installment of approximately 438.71 PLN (including principal and interest)
 
-## Przykład 2
-* **Dane wejściowe**
-   * Kwota kredytu: 50,000 zł
-   * Liczba miesięcy 60
-   * Oprocentowanie: 3%
-   * Nadpłata 200 zł miesięcznie
+## Example 2
+* **Input Data**
+   * Loan amount: 50,000 PLN
+   * Number of months: 60
+   * Overpayment: 3%
+   * Overpayment: 200 PLN monthly
 
-* **Wynik:** Harmonogram z nadpłatą, która skraca czas spłaty i zmniejsza odsetki
+* **Result:** Repayment schedule with overpayment, which shortens the repayment period and reduces interest
 
-# Błędy i ich obsługa
+# Errors and Their Handling
 
-## Aplikacja obsługuje błędy poprzez
-* Sprawdzenie, czy wprowadzone wartości są liczbami dodatnimi.
-* Obsługę błędnych formatów danych (np. litery zamiast liczb).
-* Ograniczenie nadpłaty do kwoty mniejszej niż wartość pozostałego kapitału.
+## The application handles errors by
+* Checking if the entered values are positive numbers.
+* Handling incorrect data formats (e.g., letters instead of numbers).
+* Limiting overpayment to an amount less than the remaining principal.
 
-# Wnioski i przyszłe usprawnienia
+# Conclusions and Future Improvements
 
-## Elementy do usprawnienia
-* Dodanie graficznego interfejsu użytkownika **(GUI)** dla lepszej interakcji.
+## Areas for Improvement
+* Adding a graphical user interface (GUI) for better interaction.
 
-## Wnioski:
-Projekt był wartościowym doświadczeniem, które nauczyło nas efektywnego korzystania z funkcji obsługi błędów oraz algorytmów matematycznych. W kolejnych wersjach moglibyśmy skupić się na rozbudowie funkcjonalności programu i interfejsu użytkownika.
+## Conclusions:
+The project was a valuable experience that taught us effective use of error handling functions and mathematical algorithms. In future versions, we could focus on expanding the program’s functionality and user interface.
 
-# Autorzy
+
+# Authors
 * *Jakub Golonka*
 * *Krystian Frączek* 
 * *Jakub Matras*
