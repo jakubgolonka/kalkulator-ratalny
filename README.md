@@ -1,3 +1,5 @@
+<img src="logotype.png" width="200px">
+
 # Kalkulator ratalny
 
 ## Cel i funkcje aplikacji
