@@ -1,14 +1,7 @@
-// Autorzy programu:
-// Jakub Matras
-// Jakub Golonka
-// Łukasz Szewczyk
-// Krystian Frączek
-
 using System.Data;
 
 internal class Program
 {
-
     // Funkcja pobierająca od użytkownika informację o kwocie kredytu.
     static decimal wczytywanieKwotyKredytu()
     {
@@ -17,7 +10,7 @@ internal class Program
             // Obsługa możliwych błędów przy pobieraniu wartości kwoty kredytu.
             try
             {
-                Console.Write("[->] Wprowadź kwotę kredytu: ");
+                Console.Write("[>] Wprowadź kwotę kredytu: ");
 
                 // Obsługa możliwych błędów z kwotą kredytu poniżej 0 i pobieraniem wartości kredytu.
                 if (!decimal.TryParse(Console.ReadLine(), out decimal kwotaKredytu) || kwotaKredytu <= 0)
@@ -25,6 +18,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("[BŁĄD] Wartość kwoty kredytu musi być większa od 0!");
                     Console.ForegroundColor = ConsoleColor.White;
+
                     continue;
                 }
 
@@ -47,7 +41,7 @@ internal class Program
             // Obsługa możliwych błędów przy pobieraniu liczby miesięcy.
             try
             {
-                Console.Write("[->] Wprowadź liczbę miesięcy: ");
+                Console.Write("[>] Wprowadź liczbę miesięcy: ");
 
                 // Obsługa możliwych błędów z liczbą miesięcy poniżej 0 i pobieraniem liczby miesięcy.
                 if (!int.TryParse(Console.ReadLine(), out int liczbaMiesiecy) || liczbaMiesiecy <= 0)
@@ -55,6 +49,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("[BŁĄD] Wartość liczby miesięcy musi być większa od 0!");
                     Console.ForegroundColor = ConsoleColor.White;
+
                     continue;
                 }
 
@@ -77,7 +72,7 @@ internal class Program
             // Obsługa błędów przy pobieraniu wartości oprocentowania kredytu.
             try
             {
-                Console.Write("[->] Wprowadź oprocentowanie roczne (w %): ");
+                Console.Write("[>] Wprowadź oprocentowanie roczne (w %): ");
 
                 // Obsługa możliwych błędów z wartością oprocentowania kredytu poniżej 0 i pobieraniem wartości oprocentowania kredytu.
                 if (!decimal.TryParse(Console.ReadLine(), out decimal oprocentowanieKredytu) || oprocentowanieKredytu <= 0)
@@ -85,6 +80,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("[BŁĄD] Wartość oprocentowania kredytu musi być większa od 0!");
                     Console.ForegroundColor = ConsoleColor.White;
+
                     continue;
                 }
 
@@ -107,21 +103,23 @@ internal class Program
             // Obsługa możliwych błędów przy pobieraniu wartości nadpłaty kredytu.
             try
             {
-                Console.Write("[->] Czy chcesz wprowadzić nadpłatę kredytu? (tak/nie): ");
+                Console.Write("[>] Czy chcesz wprowadzić nadpłatę kredytu? (tak/nie): ");
                 string? czyNadplata = Console.ReadLine()?.ToLower();
+
                 // Obsługa możliwych błędów występujących przy wybieraniu opcji.
                 if (czyNadplata != "tak" && czyNadplata != "nie")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("[BŁĄD] Wprowadzono nieprawidłową wartość wyboru nadpłaty.");
                     Console.ForegroundColor = ConsoleColor.White;
+
                     continue;
                 }
 
                 // Sprawdzanie, czy występuje nadpłata kredytu, a jeśli tak, to wykonywnaie kolejnych funkcji.
                 if (czyNadplata == "tak")
                 {
-                    Console.Write("[->] Wprowadź kwotę nadpłaty, którą chcesz wprowadzać miesięcznie: ");
+                    Console.Write("[>] Wprowadź kwotę nadpłaty, którą chcesz wprowadzać miesięcznie: ");
 
                     // Obsługa możliwych błędów z wartością nadpłaty kredytu poniżej 0 i pobieraniem wartości nadpłaty kredytu.
                     if (!decimal.TryParse(Console.ReadLine(), out decimal nadplataKredytu) || nadplataKredytu <= 0 || nadplataKredytu > kwotaKredytu)
@@ -129,6 +127,7 @@ internal class Program
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("[BŁĄD] Wartość nadpłaty kredytu musi być większa od 0 i mniejsza od kwoty kredytu!");
                         Console.ForegroundColor = ConsoleColor.White;
+
                         continue;
                     }
 
@@ -172,29 +171,29 @@ internal class Program
     static void wyswietlanieHarmonogramu(decimal kwotaKredytu, decimal rataKredytu, decimal miesieczneOprocentowanie, int liczbaMiesiecy, decimal nadplataKredytu)
     {
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("\n[!!] Szczegółowy harmonogramu spłat kredytu: ");
+        Console.WriteLine("\n* Szczegółowy harmonogramu");
         Console.ForegroundColor = ConsoleColor.White;
+
         Console.WriteLine("Miesiąc \t Część kapitałowa \t Część odsetkowa \t Wartość nadpłaty \t Pozostały kapitał");
 
         decimal pozostalyKapital = kwotaKredytu;
 
-        //  ustalanie indeksu kalkulatora historii kalkulatora.
+        // Ustalanie indeksu kalkulatora historii kalkulatora.
+        string? linia;
 
-        string ?linia;
         using (StreamReader odczytHistoriiKalkulatora = new StreamReader("historiaKalkulatorow.txt"))
         {
             linia = odczytHistoriiKalkulatora.ReadLine();
         }
 
         bool czyPustyPlik = false;
+
         if (linia == null)
         {
             czyPustyPlik = true;
         }
 
         // Otworzenie do zapisu pliku z historią harmonogramów.
-       
-
         if (czyPustyPlik)
         {
             using (StreamWriter historiaKalkulatorow = new StreamWriter("historiaKalkulatorow.txt", true))
@@ -202,44 +201,38 @@ internal class Program
                 DateTime now = DateTime.Now;
                 historiaKalkulatorow.WriteLine("--1-" + now);
             }
-        } 
+        }
         else
         {
-            
             int ostatniIndeks = 0;
-            
+
             using (StreamReader odczytHistoriiKalkulatora = new StreamReader("historiaKalkulatorow.txt"))
             {
                 linia = odczytHistoriiKalkulatora.ReadLine();
+
                 while (linia != null)
                 {
-                    if (linia.Substring(0, 2) == "--")
+                    if (linia.Substring(0, 2) == "--")  
                     {
                         ostatniIndeks = int.Parse(linia.Substring(2, 1));
                     }
 
-                    
                     linia = odczytHistoriiKalkulatora.ReadLine();
                 }
             }
-            
-            
 
             using (StreamWriter historiaKalkulatorow = new StreamWriter("historiaKalkulatorow.txt", true))
             {
                 DateTime now = DateTime.Now;
                 historiaKalkulatorow.WriteLine($"--{ostatniIndeks + 1 + "-" + now}");
             }
-            
         }
 
-        //zapisanie opisu do harmonogramu.
+        // Zapisanie opisu do harmonogramu.
         using (StreamWriter historiaKalkulatorow = new StreamWriter("historiaKalkulatorow.txt", true))
         {
             historiaKalkulatorow.WriteLine("Miesiąc \t Część kapitałowa \t Część odsetkowa \t Wartość nadpłaty \t Pozostały kapitał");
         }
-            
-        
 
         // Pętla tworząca harmonogram zawierający informacje o kredycie.
         for (int miesiac = 1; miesiac <= liczbaMiesiecy; miesiac++)
@@ -264,13 +257,13 @@ internal class Program
 
             Math.Round(pozostalyKapital, 2);
 
-            // zapisanie lini z kalkulatora.
+            // Zapisanie linii z kalkulatora.
             Console.WriteLine($"{miesiac,-10} \t {kapital,-20:F2} \t {odsetki,-15:F2} \t {nadplataKredytu,-15:F2} \t {pozostalyKapital,0:F2}");
+
             using (StreamWriter historiaKalkulatorow = new StreamWriter("historiaKalkulatorow.txt", true))
             {
                 historiaKalkulatorow.WriteLine($"{miesiac,-10} \t {kapital,-20:F2} \t {odsetki,-15:F2} \t {nadplataKredytu,-15:F2} \t {pozostalyKapital,0:F2}");
             }
-                
 
             if (pozostalyKapital <= 0)
             {
@@ -279,13 +272,13 @@ internal class Program
 
             rataKredytu = przeliczNowaRate(pozostalyKapital, miesieczneOprocentowanie, liczbaMiesiecy - miesiac);
         }
-        
     }
 
     static void wyswietlanieHistoriiKalkulatora()
     {
-        string ?linia;
+        string? linia;
         int maksymalnyIndeksOdczytuHistori = 1;
+
         using (StreamReader odczytHistoriiKalkulatora = new StreamReader("historiaKalkulatorow.txt"))
         {
             linia = odczytHistoriiKalkulatora.ReadLine();
@@ -295,15 +288,21 @@ internal class Program
         if (linia == null)
         {
             //automatyczne zakończenie wykonywania funkcji, gdy historia jest pusta.
-            Console.WriteLine("Niestety, historia twojego kalkulatora ratalnego jest pusta");
+            Console.WriteLine("! Historia obliczeń w kalkulatorze ratalnym jest pusta.");
+
             return;
         }
+
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("\n* Historia programu");
+        Console.ForegroundColor = ConsoleColor.White;
 
         List<string[]> historiaKalkulator = new List<string[]>();
 
         using (StreamReader odczytHistoriiKalkulatora = new StreamReader("historiaKalkulatorow.txt"))
         {
             linia = odczytHistoriiKalkulatora.ReadLine();
+
             while (linia != null)
             {
                 if (linia.Substring(0, 2) == "--")
@@ -318,28 +317,34 @@ internal class Program
         }
 
         foreach (var item in historiaKalkulator)
-        {   
-            Console.Write(item[2] + ":  " + item[3]);
-            Console.WriteLine();  
+        {
+            Console.Write("[" + item[2] + "] " + item[3]);
+            Console.WriteLine();
         }
-        
 
-        int ktoryIndeksWyswietlic = 0;
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("\n* Wybór daty harmongoramu");
+        Console.ForegroundColor = ConsoleColor.White;
+
+        int ktoryIndeksWyswietlic;
 
         while (true)
         {
-            // Obsługa możliwych błędów przy pobieraniu wartości true/false czy wyświetlać
+            // Obsługa możliwych błędów przy pobieraniu wartości true/false przy wyświetlaniu konkretnej historii.
             try
             {
-                Console.Write("Którą historię chcesz wyświetlić (podaj liczbę indeksu): ");
+                Console.Write("[>] ");
                 if (!int.TryParse(Console.ReadLine(), out int indeks) || indeks <= 0 || indeks > maksymalnyIndeksOdczytuHistori)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"[BŁĄD] Wartość liczby musi być większa od 0 oraz mniejsza bądź równa {maksymalnyIndeksOdczytuHistori}!");
+                    Console.WriteLine($"[BŁĄD] Wartość liczby musi być większa od 0 oraz mniejsza, bądź równa {maksymalnyIndeksOdczytuHistori}!");
                     Console.ForegroundColor = ConsoleColor.White;
+
                     continue;
                 }
+
                 ktoryIndeksWyswietlic = indeks;
+
                 break;
             }
             catch (Exception e)
@@ -354,6 +359,7 @@ internal class Program
         {
             linia = odczytHistoriiKalkulatora.ReadLine();
             Boolean czyWyswietlacLinie = false;
+
             while (linia != null)
             {
                 if (linia.Substring(0, 2) == "--")
@@ -362,8 +368,13 @@ internal class Program
                     {
                         czyWyswietlacLinie = true;
 
-                        Console.WriteLine($"\nOdczyt z daty: {linia.Split("-")[3]}");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("\n* Szczegółowy harmonogram");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        Console.WriteLine($"! Odczyt z daty: {linia.Split("-")[3]}\n");
                         linia = odczytHistoriiKalkulatora.ReadLine();
+
                         continue;
                     }
                     else
@@ -380,7 +391,6 @@ internal class Program
                 linia = odczytHistoriiKalkulatora.ReadLine();
             }
         }
-        Console.WriteLine();
     }
 
 
@@ -388,70 +398,64 @@ internal class Program
     static void wyswietlanieAutorow()
     {
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("\n[!!] Autorzy programu: ");
+        Console.WriteLine("\n* Autorzy programu: ");
         Console.ForegroundColor = ConsoleColor.White;
 
-        Console.WriteLine("Jakub Matras \nJakub Golonka \nŁukasz Szewczyk \nKrystian Frączek \nKlasa: 3TP ZSTiO");
-    }
-
-    static Boolean czyWyswietlicHistorie()
-    {
-        while (true)
-        {
-            // Obsługa możliwych błędów przy pobieraniu wartości true/false czy wyświetlać
-            try
-            {
-                Console.Write("Czy chcesz wyświetlić jakiś grafik z twojej historii kalkulatora ratalnego? (tak/nie): ");
-                string ?odpowiedz = Console.ReadLine();
-                if (odpowiedz == "tak")
-                    return true;
-                if (odpowiedz == "nie")
-                    return false;
-
-                Console.WriteLine("Wprowadzono złą wartość, Podana wartość musi być równa 'tak' lub 'nie'");
-                continue;
-            }
-            catch (Exception e)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[BŁĄD] Wystąpił błąd. [" + e.Message + "]");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
+        Console.WriteLine("Jakub Matras\nJakub Golonka\nŁukasz Szewczyk\nKrystian Frączek\nKlasa: 3TP ZSTiO");
     }
 
     private static void Main(string[] args)
     {
+        // Wyświetlanie podstawowych informacji tekstowych o programie.
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine("Kalkulator ratalny\n");
+        Console.WriteLine("Kalkulator ratalny");
         Console.ForegroundColor = ConsoleColor.White;
 
-        // Wybieranie opcji, czy użytkownik chce wyświetlić log z historii, czy obliczyć coś w kalkulatorze
 
+        if (!File.Exists(".\\historiaKalkulatorow.txt"))
+        {
+            StreamWriter plik = new StreamWriter(".\\historiaKalkulatorow.txt", true);
+            plik.Close();
+        }
+
+        // Możliwość wyboru opcji, czy użytkownik chce wyświetlić dane z historii, czy obliczyć ratę w kalkulatorze.
         while (true)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("\n* Nawigacja programu");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("[1] - Obliczanie wartości rat według podanych danych.");
+            Console.WriteLine("[2] - Wyświetlanie zapisanego grafiku w historii.");
+            Console.WriteLine("[3] - Zakończenie działania programu.");
+
             try
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\n---------------------------Menu Opcji--------------------------");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("\n* Wybór opcji programu");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Aby dokonać obliczenia w kalkulatorze ratalnym wybierz '1', ");
-                Console.WriteLine("Aby wyświetlić jakiś grafik z historii kalkulatora wybierz '2', ");
-                Console.WriteLine("Aby zakończyć program wybierz '3': ");
-                Console.Write("Twój wybór: ");
+
+                Console.Write("[>] ");
+
                 int.TryParse(Console.ReadLine(), out int wybor);
+
                 if (wybor <= 0 || wybor > 3)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("[BŁĄD] Wybrano złą odpowiedź, wybrana odpowiedź musi być równa '1' albo '2' ");
+                    Console.WriteLine("[BŁĄD] Wpisano złą wartość, wybrana odpowiedź musi być z zakresu od 1 do 3.");
                     Console.ForegroundColor = ConsoleColor.White;
+
                     continue;
                 }
 
-                switch(wybor)
+                switch (wybor)
                 {
                     case 1:
-                        // Przypisywanie parametrów do poszczególnych zmiennych
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("\n* Wprowadzanie wartości");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        // Przypisywanie parametrów do poszczególnych zmiennych.
                         decimal kwotaKredytu = wczytywanieKwotyKredytu();
                         int liczbaMiesiecy = wczytywanieLiczbyMiesiecy();
                         decimal oprocentowanieKredytu = wczytywanieOprocentowaniaKredytu();
@@ -460,25 +464,35 @@ internal class Program
                         decimal miesieczneOprocentowanie = obliczanieOprocentowania(oprocentowanieKredytu);
                         decimal rataKredytu = obliczRateKredytu(kwotaKredytu, miesieczneOprocentowanie, liczbaMiesiecy);
 
-                        // Wywolywanie funkcji odpowiadających za wyświetlanie programu.
+                        // Wywoływanie funkcji odpowiadających za wyświetlanie programu.
                         wyswietlanieHarmonogramu(kwotaKredytu, rataKredytu, miesieczneOprocentowanie, liczbaMiesiecy, nadplataKredytu);
-                        wyswietlanieAutorow();
+
                         continue;
+
                     case 2:
+                        // Wywołanie funkcji odpowiadającej za wyświetlenie danych z historii.
                         wyswietlanieHistoriiKalkulatora();
+
                         continue;
+
                     case 3:
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n-----------------------PROGRAM ZAKOŃCZONY----------------------");
+                        // Wyświetlanie informacji o autorach programu.
+                        wyswietlanieAutorow();
+
+                        // Wyświetlenie informacji o zakończeniu działania programu.
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\n* Zakończono działanie programu.");
                         Console.ForegroundColor = ConsoleColor.White;
+
                         break;
                 }
+
                 break;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("[BŁĄD] Wystąpił błąd. [" + e.Message + "]");
+                Console.WriteLine("[BŁĄD] Wystąpił błąd z działaniem programu. [" + e.Message + "]");
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
