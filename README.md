@@ -1,7 +1,5 @@
-<p align="center" style="font-size: 40px">
-  Installment
+<p align="center">
   <img alt="logotype" src="logotype-new.png" width="256px">
-  Calculator
 </p>
 
 # Installment Calculator
