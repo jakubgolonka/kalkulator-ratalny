@@ -1,7 +1,7 @@
 <p align="center">
-  Installment
+  # Installment
   <img alt="logotype" src="logotype-new.png" width="256px">
-  Calculator
+  # Calculator
 </p>
 
 # Installment Calculator
