@@ -5,10 +5,10 @@
 # Installment Calculator
 
 ## Purpose and Functions of the Application
-The installment calculator is a console application that allows you to calculate a loan repayment schedule based on the loan amount, repayment period, interest rate, and optional overpayment. The user inputs the data, and the application calculates and displays the monthly loan installments, dividing them into principal and interest parts. The calculator also helps understand how overpayment affects the shortening of the loan period and the reduction of interest amounts.
+The Installment Calculator is a console application that allows users to calculate a loan repayment schedule based on the loan amount, repayment period, interest rate, and optional early repayment. The user inputs the data, and the application calculates and displays the monthly installments, breaking them down into the principal and interest parts. The calculator also helps users understand how early repayments affect the loan term and reduce the interest amount. Additionally, the application allows users to track the loan history, making it easier to compare different loan scenarios.
 
 ## Problem Solved by the Application
-The application facilitates accurate loan repayment planning for users, taking into account variable interest rates and overpayments. It allows for quick calculations and simulations that can be difficult to perform manually, providing the user with clear data on their loan obligations.
+The application helps users to plan their loan repayments accurately, considering variable interest rates and early repayments. It allows for quick calculations and simulations that might be difficult to perform manually, providing users with clear information about their credit obligations. The loan history feature enables users to compare different loans and early repayments, as well as track their progress over time.
 
 # App Architecture
 | **Module** | **Functions** | **Description** |
@@ -24,16 +24,24 @@ The application facilitates accurate loan repayment planning for users, taking i
 | Recalculating new installment | *przeliczNowaRate() | The function recalculates the new loan installment after applying the overpayment. It calculates the new installment amount based on the remaining principal.
 | **Displaying Results** | | **Displays user loan data in the console.**
 | Displaying schedule | *wyswietlanieHarmonogramu()* |  Presents the loan repayment schedule, showing for each month the principal part, interest part, overpayment amount, and remaining amount to be repaid.
+| **Loan History** | | **Features related to saving and displaying loan history.**
+| Displaying Calculator History | *wyswietlanieHistoriiKalkulatora()* |  This function presents the loan repayment history, showing the loan amount, interest rate, loan term, and early repayment values. This allows the user to compare how different loan options affected the repayment schedule.
 | **Additional Information** | | **Additional functions**
 | Displaying authors | *wyswietlanieAutorow()* | Displays information about the program’s authors.
 
 ## Application Modules
 
-### Data Loading Module
-* Responsible for entering user data such as loan amount, number of months, interest rate, and overpayment. The data is validated for correctness.
+### Data Input Module
+* Responsible for collecting user data such as loan amount, term, interest rate, and early repayment. The input is validated for correctness.
 
 ### Calculation Module
-* Calculates the monthly loan installment, dividing it into principal and interest parts, based on the entered data. It considers the impact of overpayment on the remaining principal and modifies the repayment schedule.
+* Calculates the monthly loan installment with a breakdown into the principal and interest parts, based on the input data. It takes early repayment into account and modifies the repayment schedule.
+
+### Results Display Module
+* Responsible for presenting the repayment schedule, including details for each installment, early repayments, and remaining principal.
+
+### Loan History Module
+* Allows for saving and later displaying loan histories, enabling users to compare different loan simulations.
 
 
 # Description of Functions and Functionalities
@@ -58,6 +66,9 @@ The application facilitates accurate loan repayment planning for users, taking i
 
 ### Function *wyswietlanieHarmonogramu*
 * Displays a detailed repayment schedule, which includes information on the principal, interest parts, and overpayment.
+
+### Function *wyswietlanieHistoriiKalkulatora*
+* Allows the user to view the history of loans, including the loan amount, interest rate, term, and early repayments. This enables comparison of how different loan options affected the repayment schedule.
 
 # Installation and Configuration
 
@@ -85,6 +96,7 @@ The application facilitates accurate loan repayment planning for users, taking i
 * **Functions wczytywanieKwotyKredytu, wczytywanieLiczbyMiesiecy, wczytywanieOprocentowaniaKredytu, wczytywanieNadplatyKredytu**: These functions load data from the user and handle potential errors, such as incorrect input values.
 * **Function obliczRateKredytu**: The key algorithm that calculates the fixed loan installment using the equal installment formula.
 * **Function wyswietlanieHarmonogramu**:  Displays the installment schedule on the console, dividing it into principal, interest, and remaining debt.
+* **Function wyswietlanieHistoriiKalkulatora**:  A function that saves and displays the loan history, allowing comparisons between multiple scenarios.
 
 # Usage Examples
 
@@ -117,10 +129,10 @@ The application facilitates accurate loan repayment planning for users, taking i
 
 ## Areas for Improvement
 * Adding a graphical user interface (GUI) for better interaction.
+* Implementing file saving to store data about loans and repayment history.
 
 ## Conclusions:
-The project was a valuable experience that taught us effective use of error handling functions and mathematical algorithms. In future versions, we could focus on expanding the program’s functionality and user interface.
-
+This project was a valuable experience that taught us how to effectively use error handling and mathematical algorithms. In future versions, we could focus on expanding the program’s functionality, such as saving and comparing multiple loan simulations.
 
 # Authors
 * *Jakub Golonka*
