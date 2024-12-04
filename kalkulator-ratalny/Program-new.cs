@@ -162,6 +162,7 @@ internal class Program
         return Math.Round(kwotaKredytu * (miesieczneOprocentowanie * (decimal)Math.Pow((double)(1 + miesieczneOprocentowanie), liczbaMiesiecy)) / ((decimal)Math.Pow((double)(1 + miesieczneOprocentowanie), liczbaMiesiecy) - 1), 2);
     }
 
+    // Funkcja przeliczająca nową ratę po uwzględnieniu nadpłaty lub zmniejszenia kapitału.
     static decimal przeliczNowaRate(decimal pozostalyKapital, decimal miesieczneOprocentowanie, int liczbaMiesiecy)
     {
         return obliczRateKredytu(pozostalyKapital, miesieczneOprocentowanie, liczbaMiesiecy);
@@ -178,7 +179,7 @@ internal class Program
 
         decimal pozostalyKapital = kwotaKredytu;
 
-        // Ustalanie indeksu kalkulatora historii kalkulatora.
+        // Odczyt pliku historii harmonogramów, aby ustalić numerację wpisów.
         string? linia;
 
         using (StreamReader odczytHistoriiKalkulatora = new StreamReader("historiaKalkulatorow.txt"))
@@ -204,6 +205,7 @@ internal class Program
         }
         else
         {
+            // Obsługa informacji dotyczących numeracji historii harmonogramów.
             int ostatniIndeks = 0;
 
             using (StreamReader odczytHistoriiKalkulatora = new StreamReader("historiaKalkulatorow.txt"))
@@ -212,7 +214,7 @@ internal class Program
 
                 while (linia != null)
                 {
-                    if (linia.Substring(0, 2) == "--")  
+                    if (linia.Substring(0, 2) == "--")
                     {
                         ostatniIndeks = int.Parse(linia.Substring(2, 1));
                     }
@@ -228,7 +230,7 @@ internal class Program
             }
         }
 
-        // Zapisanie opisu do harmonogramu.
+        // Zapisywanie wszystkich nagłówków harmonogramu do historii kalkulatora.
         using (StreamWriter historiaKalkulatorow = new StreamWriter("historiaKalkulatorow.txt", true))
         {
             historiaKalkulatorow.WriteLine("Miesiąc \t Część kapitałowa \t Część odsetkowa \t Wartość nadpłaty \t Pozostały kapitał");
@@ -257,7 +259,7 @@ internal class Program
 
             Math.Round(pozostalyKapital, 2);
 
-            // Zapisanie linii z kalkulatora.
+            // Zapisywanie poszczególnych linii harmonogramu do historii.
             Console.WriteLine($"{miesiac,-10} \t {kapital,-20:F2} \t {odsetki,-15:F2} \t {nadplataKredytu,-15:F2} \t {pozostalyKapital,0:F2}");
 
             using (StreamWriter historiaKalkulatorow = new StreamWriter("historiaKalkulatorow.txt", true))
@@ -284,11 +286,13 @@ internal class Program
             linia = odczytHistoriiKalkulatora.ReadLine();
         }
 
-        //sprawdzenie, czy historia jest pusta
+        // Sprawdzanie, czy historia zapisana w kalkulatorze ratalnym jest pusta.
         if (linia == null)
         {
-            //automatyczne zakończenie wykonywania funkcji, gdy historia jest pusta.
-            Console.WriteLine("! Historia obliczeń w kalkulatorze ratalnym jest pusta.");
+            // Automatyczne zakończenie wykonywania funkcji, w sytuacji, gdy historia jest pusta.
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n* Historia obliczeń w kalkulatorze ratalnym jest pusta.");
+            Console.ForegroundColor = ConsoleColor.White;
 
             return;
         }
@@ -316,9 +320,9 @@ internal class Program
             }
         }
 
-        foreach (var item in historiaKalkulator)
+        foreach (var element in historiaKalkulator)
         {
-            Console.Write("[" + item[2] + "] " + item[3]);
+            Console.Write("[" + element[2] + "] - " + element[3]);
             Console.WriteLine();
         }
 
@@ -333,7 +337,8 @@ internal class Program
             // Obsługa możliwych błędów przy pobieraniu wartości true/false przy wyświetlaniu konkretnej historii.
             try
             {
-                Console.Write("[>] ");
+                Console.Write("[>] Wprowadź element historii do wczytania: ");
+
                 if (!int.TryParse(Console.ReadLine(), out int indeks) || indeks <= 0 || indeks > maksymalnyIndeksOdczytuHistori)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -372,7 +377,7 @@ internal class Program
                         Console.WriteLine("\n* Szczegółowy harmonogram");
                         Console.ForegroundColor = ConsoleColor.White;
 
-                        Console.WriteLine($"! Odczyt z daty: {linia.Split("-")[3]}\n");
+                        Console.WriteLine($"[!] Odczyt z daty: {linia.Split("-")[3]}\n");
                         linia = odczytHistoriiKalkulatora.ReadLine();
 
                         continue;
@@ -392,7 +397,6 @@ internal class Program
             }
         }
     }
-
 
     // Funkcja wyświetlająca informacje o autorach programu.
     static void wyswietlanieAutorow()
@@ -435,7 +439,7 @@ internal class Program
                 Console.WriteLine("\n* Wybór opcji programu");
                 Console.ForegroundColor = ConsoleColor.White;
 
-                Console.Write("[>] ");
+                Console.Write("[>] Wprowadź wybraną opcję do wykonania: ");
 
                 int.TryParse(Console.ReadLine(), out int wybor);
 
