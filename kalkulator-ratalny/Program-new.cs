@@ -290,7 +290,7 @@ internal class Program
         if (linia == null)
         {
             // Automatyczne zakończenie wykonywania funkcji, w sytuacji, gdy historia jest pusta.
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\n* Historia obliczeń w kalkulatorze ratalnym jest pusta.");
             Console.ForegroundColor = ConsoleColor.White;
 
