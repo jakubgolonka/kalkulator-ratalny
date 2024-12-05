@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="logotype" src="logotype-new.png" width="256px">
+  <img alt="logotype" src="logotype.png" width="256px">
 </p>
 
 # Kalkulator ratalny
