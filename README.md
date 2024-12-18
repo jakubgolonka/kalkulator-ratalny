@@ -129,7 +129,6 @@ The application helps users to plan their loan repayments accurately, considerin
 
 ## Areas for Improvement
 * Adding a graphical user interface (GUI) for better interaction.
-* Implementing file saving to store data about loans and repayment history.
 
 ## Conclusions:
 This project was a valuable experience that taught us how to effectively use error handling and mathematical algorithms. In future versions, we could focus on expanding the program’s functionality, such as saving and comparing multiple loan simulations.
