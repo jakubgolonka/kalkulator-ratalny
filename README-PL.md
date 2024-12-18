@@ -131,7 +131,6 @@ Aplikacja ułatwia użytkownikom dokładne planowanie spłaty kredytu, uwzględn
 
 ## Elementy do usprawnienia
 * Dodanie graficznego interfejsu użytkownika **(GUI)** dla lepszej interakcji.
-* Implementacja zapisów do plików, aby przechować dane o kredytach i historii spłat.
 
 ## Wnioski:
 Projekt był wartościowym doświadczeniem, które nauczyło nas efektywnego korzystania z funkcji obsługi błędów oraz algorytmów matematycznych. W kolejnych wersjach moglibyśmy skupić się na rozbudowie funkcjonalności programu, w tym możliwości zapisywania i porównywania wielu symulacji kredytowych.
