@@ -446,7 +446,7 @@ internal class Program
                 if (wybor <= 0 || wybor > 3)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("[BŁĄD] Wpisano złą wartość, wybrana odpowiedź musi być z zakresu od 1 do 3.");
+                    Console.WriteLine("[BŁĄD] Wpisano złą wartość, wybrana odpowiedź musi być liczbą całkowitą z zakresu od 1 do 3.");
                     Console.ForegroundColor = ConsoleColor.White;
 
                     continue;
