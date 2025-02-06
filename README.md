@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="brand-logo" src="assets/brand-logo.png" width="256px">
+  <img alt="brand-logotype" src="assets/brand-logotype.png" width="256px">
 </p>
 
 # Installment Calculator
